@@ -1,0 +1,18 @@
+[
+  {
+    "id": "0cadca40-1d71-46f8-8c14-a1780e43d76c",
+    "name": "default-radar",
+    "description": "WDT default radar style",
+    "css": "#reflectivity[dbz>0] { polygon-opacity: 0.5; polygon-fill: #00ee00; }\n#reflectivity[dbz>10] { polygon-opacity: 1.0; polygon-fill: #00dd00; }\n#reflectivity[dbz>20] { polygon-opacity: 1.0; polygon-fill: #00aa00; }\n#reflectivity[dbz>30] { polygon-opacity: 1.0; polygon-fill: #006600; }\n#reflectivity[dbz>40] { polygon-opacity: 1.0; polygon-fill: #ffff00; }\n#reflectivity[dbz>50] { polygon-opacity: 1.0; polygon-fill: #ff0000; }\n#reflectivity[dbz>60] { polygon-opacity: 1.0; polygon-fill: #ff00ff; }\n#reflectivity[dbz>70] { polygon-opacity: 1.0; polygon-fill: #ff88ff; }",
+    "isDefault": true,
+    "product": "/products/4a79aeab-84f0-4dde-ae39-a20b4ccee878"
+  },
+  {
+    "id": "460680c8-db62-4a6f-90e1-95032be686f4",
+    "name": "nws-radar",
+    "description": "National Weather Service radar style",
+    "css": "#reflectivity[dbz>0] { polygon-opacity: 0.5; polygon-fill: #00ecec; }\n#reflectivity[dbz>10] { polygon-opacity: 1.0; polygon-fill: #00a0f6; }\n#reflectivity[dbz>20] { polygon-opacity: 1.0; polygon-fill: #00ff00; }\n#reflectivity[dbz>30] { polygon-opacity: 1.0; polygon-fill: #009000; }\n#reflectivity[dbz>40] { polygon-opacity: 1.0; polygon-fill: #e7c000; }\n#reflectivity[dbz>50] { polygon-opacity: 1.0; polygon-fill: #ff0000; }\n#reflectivity[dbz>60] { polygon-opacity: 1.0; polygon-fill: #c000ff; }\n#reflectivity[dbz>70] { polygon-opacity: 1.0; polygon-fill: #9955c9; }",
+    "isDefault": false,
+    "product": "/products/4a79aeab-84f0-4dde-ae39-a20b4ccee878"
+  }
+]

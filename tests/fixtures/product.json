@@ -1,0 +1,36 @@
+{
+	"styles": "/products/1708323a-e9fe-11e4-b02c-1681e6b88ec1/styles",
+	"source": "wdssii",
+	"contentType": "precipitation",
+	"name": "skywise-1hr-precipitation-analysis",
+	"frames": "/products/1708323a-e9fe-11e4-b02c-1681e6b88ec1/frames",
+	"styleableLayers":[
+		{
+			"attributes":[],
+			"type": "raster",
+			"name": "precipitation",
+			"unit":{
+				"description": "millimeters",
+				"label": "mm"
+			}
+		}
+	],
+	"forecasts": null,
+	"id": "1708323a-e9fe-11e4-b02c-1681e6b88ec1",
+	"description": "SkyWise WDSSII 1-hour quantitative precipitation estimate",
+	"coverage": {
+		"geometry":{
+			"type": "MultiPolygon",
+			"coordinates":[[[
+				[-120.49, 22.84],
+				[-81.24, 20.09],
+				[-60.83, 45.99],
+				[-136.45, 52.46],
+				[-120.49, 22.84]
+				]]]
+		},
+		"type": "Feature"
+	},
+	"startTime": "2016-02-10T10:00:00Z",
+	"endTime": "2016-02-15T16:00:00Z"
+}

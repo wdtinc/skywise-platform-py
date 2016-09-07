@@ -1,0 +1,24 @@
+[{
+  "tile": "/frames/77d3b884-3833-495f-9b64-dfefe527fd28/tile/3/1/3",
+  "pixel": {
+    "row": 52,
+    "column": 213
+  },
+  "value": 4.3,
+  "unit": {
+    "description": "degrees Fahrenheit",
+    "label": "°F"
+  }
+},
+{
+  "tile": "/frames/89cbee3c-0031-45d5-8651-cf15ebce0fe9/tile/3/1/3",
+  "pixel": {
+    "row": 52,
+    "column": 213
+  },
+  "value": 15.2,
+  "unit": {
+    "description": "degrees Fahrenheit",
+    "label": "°F"
+  }
+}]

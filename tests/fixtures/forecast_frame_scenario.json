@@ -1,0 +1,124 @@
+{
+  "product": {
+    "aggregationPeriodInMinutes": 1440,
+    "styles": "/products/my-forecast-product/styles",
+	"source": "wdssii",
+	"contentType": "precipitation",
+	"name": "my-forecast-product",
+	"frames": null,
+	"styleableLayers":[
+		{
+			"attributes":[],
+			"type": "raster",
+			"name": "precipitation",
+			"unit":{
+				"description": "millimeters",
+				"label": "mm"
+			}
+		}
+	],
+	"forecasts": "/products/my-forecast-product/forecasts",
+	"id": "my-forecast-product",
+	"description": "SkyWise WDSSII 1-hour quantitative precipitation estimate",
+	"coverage": {
+		"geometry":{
+			"type": "MultiPolygon",
+			"coordinates":[[[
+				[-120.49, 22.84],
+				[-81.24, 20.09],
+				[-60.83, 45.99],
+				[-136.45, 52.46],
+				[-120.49, 22.84]
+				]]]
+		},
+		"type": "Feature"
+	},
+	"startTime": "2014-09-01T00:00:00Z",
+	"endTime": "2014-09-03T00:00:00Z"
+  },
+  "forecasts": [{
+    "id": "forecast-a",
+    "initTime": "2014-09-01T00:00:00Z",
+    "frames": "/forecasts/forecast-a/frames",
+    "product": "/products/my-forecast-product",
+    "status": "COMPLETE"
+  },{
+    "id": "forecast-b",
+    "initTime": "2014-09-02T00:00:00Z",
+    "frames": "/forecasts/forecast-b/frames",
+    "product": "/products/my-forecast-product",
+    "status": "COMPLETE"
+  }],
+  "frames": {
+    "forecast-a": [{
+      "id": "frame-a-1",
+      "validTime": "2014-09-01T00:00:00Z",
+      "runTime": "2014-09-01T00:01:00Z",
+      "zoomLevels": {
+        "minimum": 2,
+        "native": 5,
+        "maximum": 17
+      },
+      "mediaTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/tiff"
+      ],
+      "tileSize": 256,
+      "forecast": null,
+      "product": "/products/my-forecast-product"
+    },{
+      "id": "frame-a-2",
+      "validTime": "2014-09-02T00:00:00Z",
+      "runTime": "2014-09-01T00:01:00Z",
+      "zoomLevels": {
+        "minimum": 2,
+        "native": 5,
+        "maximum": 17
+      },
+      "mediaTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/tiff"
+      ],
+      "tileSize": 256,
+      "forecast": null,
+      "product": "/products/my-forecast-product"
+    }],
+    "forecast-b": [{
+      "id": "frame-b-1",
+      "validTime": "2014-09-02T00:00:00Z",
+      "runTime": "2014-09-01T00:01:00Z",
+      "zoomLevels": {
+        "minimum": 2,
+        "native": 5,
+        "maximum": 17
+      },
+      "mediaTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/tiff"
+      ],
+      "tileSize": 256,
+      "forecast": null,
+      "product": "/products/my-forecast-product"
+    },{
+      "id": "frame-b-2",
+      "validTime": "2014-09-03T00:00:00Z",
+      "runTime": "2014-09-01T00:01:00Z",
+      "zoomLevels": {
+        "minimum": 2,
+        "native": 5,
+        "maximum": 17
+      },
+      "mediaTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/tiff"
+      ],
+      "tileSize": 256,
+      "forecast": null,
+      "product": "/products/my-forecast-product"
+    }]
+  }
+}
