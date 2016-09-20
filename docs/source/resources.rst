@@ -12,7 +12,7 @@ Any resource that is not a tile is a JSON resource. You can inspect the data of 
 .. code-block:: python
 
     >>> from skywiseplatform import Product
-    >>> product = Production.find('weatherops-1hr-precipitation-forecast')
+    >>> product = Product.find('weatherops-1hr-precipitation-forecast')
     >>> product.json()
     {
        u'styles':u'/products/170835d2-e9fe-11e4-b02c-1681e6b88ec1/styles',
