@@ -12,7 +12,7 @@ Any resource that is not a tile is a JSON resource. You can inspect the data of 
 .. code-block:: python
 
     >>> from skywiseplatform import Product
-    >>> product = Production.find('weatherops-1hr-precipitation-forecast')
+    >>> product = Product.find('weatherops-1hr-precipitation-forecast')
     >>> product.json()
     {
        u'styles':u'/products/170835d2-e9fe-11e4-b02c-1681e6b88ec1/styles',
@@ -85,11 +85,11 @@ requested image using the `content()` method.
 
 You can then open up your tiff to inspect the data directly. We'll talk about tile methods in more depth later on.
 
-----------
-group_by()
-----------
-Almost all requests made with the client result in a list of resources being returned. The `group_by()` method makes it
-easy to organize your results. `group_by()` allows you to specify an attribute shared by all elements in your resource
+-------
+group()
+-------
+Almost all requests made with the client result in a list of resources being returned. The `group()` method makes it
+easy to organize your results. `group()` allows you to specify an attribute shared by all elements in your resource
 list and returns a dictionary that groups the resources by that attribute. Here's an example of how we could group all of
 our Products by their content type attribute:
 
