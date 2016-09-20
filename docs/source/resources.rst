@@ -85,11 +85,11 @@ requested image using the `content()` method.
 
 You can then open up your tiff to inspect the data directly. We'll talk about tile methods in more depth later on.
 
-----------
-group_by()
-----------
-Almost all requests made with the client result in a list of resources being returned. The `group_by()` method makes it
-easy to organize your results. `group_by()` allows you to specify an attribute shared by all elements in your resource
+-------
+group()
+-------
+Almost all requests made with the client result in a list of resources being returned. The `group()` method makes it
+easy to organize your results. `group()` allows you to specify an attribute shared by all elements in your resource
 list and returns a dictionary that groups the resources by that attribute. Here's an example of how we could group all of
 our Products by their content type attribute:
 
