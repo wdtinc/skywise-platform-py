@@ -53,6 +53,11 @@ class _Frame(SkyWiseJSON, PlatformResource):
     })
 
 
+class SingleFrame(_Frame):
+
+    _path = "/frames"
+
+
 class ProductFrame(_Frame):
     """Requests product frames.
     """

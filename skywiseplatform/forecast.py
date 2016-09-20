@@ -5,7 +5,7 @@ from skywiserestclient import SkyWiseJSON
 from skywiserestclient.validation import datetime, datetime_to_str
 from skywiserestclient.exceptions import MissingParametersException
 from skywiserestclient.skywise import SkyWiseException
-from . import PlatformResource
+from skywiseplatform import PlatformResource, ForecastFrame
 
 
 _forecast_deserialize_schema = Schema({
@@ -76,6 +76,9 @@ class _ProductForecast(SkyWiseJSON, PlatformResource):
         forecasts = cls.find(product_id)
         forecasts.sort(key=lambda f: f.initTime)
         return forecasts[-1]
+
+    def get_frames(self, start=None, end=None, **kwargs):
+        return ForecastFrame.find(self.id, start=start, end=end, **kwargs)
 
     def __repr__(self):
         try:

@@ -2,6 +2,7 @@ from voluptuous import Schema
 
 from skywiserestclient import SkyWiseJSON
 from . import PlatformResource
+from .frame import SingleFrame
 
 
 class Datapoint(SkyWiseJSON, PlatformResource):
@@ -36,6 +37,10 @@ class Datapoint(SkyWiseJSON, PlatformResource):
 
     @classmethod
     def find(cls, frame, latitude, longitude, **kwargs):
+        try:
+            frame.id
+        except AttributeError:
+            frame = SingleFrame.find(frame)
         r = super(Datapoint, cls).find(frame_id=frame.id, latitude=latitude, longitude=longitude, **kwargs)
         r.frame = frame
         r.validTime = frame.validTime
@@ -43,6 +48,10 @@ class Datapoint(SkyWiseJSON, PlatformResource):
 
     @classmethod
     def find_async(cls, frame, latitude, longitude, **kwargs):
+        try:
+            frame.id
+        except AttributeError:
+            frame = SingleFrame.find(frame)
         r = super(Datapoint, cls).find_async(frame_id=frame.id, latitude=latitude, longitude=longitude, **kwargs)
         r.tag(frame=frame, validTime=frame.validTime)
         return r

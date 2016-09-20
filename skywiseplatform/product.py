@@ -8,7 +8,7 @@ from skywiserestclient import SkyWiseException
 
 from . import PlatformResource
 from .style import Style
-from .frame import ForecastFrame, ProductFrame
+from .frame import ProductFrame
 from .tile import GoogleMapsTile, BingMapsTile
 from .datapoint import Datapoint
 from .forecast import Forecast
@@ -123,10 +123,8 @@ class Product(SkyWiseJSON, PlatformResource):
         """
         return Style.find(self.id)
 
-    def get_forecast(self, forecast_id):
-        forecast = Forecast.find(forecast_id)
-        forecast.product = self
-        return forecast
+    def get_forecasts(self, **kwargs):
+        return Forecast.find(product_id=self.id, **kwargs)
 
     def get_frames(self, start=None, end=None, limit=None, reruns=None, **kwargs):
         """Requests all frames for the product.
@@ -150,7 +148,7 @@ class Product(SkyWiseJSON, PlatformResource):
         """ Get all frames for a product's forecasts in a given range, prioritizing the most current. """
         if start is None or end is None:
             forecast = Forecast.current(self.id)
-            return ForecastFrame.find(forecast.id, start=start, end=end)
+            return forecast.get_frames(start=start, end=end)
 
         forecasts = Forecast.find(product_id=self.id)
         forecasts.sort(key=lambda f: f.initTime)
@@ -161,7 +159,7 @@ class Product(SkyWiseJSON, PlatformResource):
         for forecast in forecasts:
             if not valid_times:
                 break
-            frame_slice = ForecastFrame.find(forecast.id, start=start, end=end)
+            frame_slice = forecast.get_frames(start=start, end=end)
             while frame_slice and valid_times:
                 frame = frame_slice.pop()
                 valid_times_covered = []
@@ -228,7 +226,7 @@ class Product(SkyWiseJSON, PlatformResource):
 
     def get_datapoints(self, latitude, longitude, **kwargs):
         reqs = self.get_datapoints_async(latitude, longitude, **kwargs)
-        return self.map(reqs)
+        return self.map(reqs, raise_on_error=True)
 
     def get_datapoints_async(self, latitude, longitude, **kwargs):
         dp_requests = []
