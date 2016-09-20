@@ -93,7 +93,8 @@ easy to organize your results. `group_by()` allows you to specify an attribute s
 list and returns a dictionary that groups the resources by that attribute. Here's an example of how we could group all of
 our Products by their content type attribute:
 
-```python
+.. code-block:: python
+
     >>> from skywiseplatform import Product
     >>> products = Product.find()
     >>> products
@@ -117,4 +118,3 @@ our Products by their content type attribute:
           <Product weatherops-tropical-wind-speed-forecast>
        ]
     }
-```

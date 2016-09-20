@@ -63,5 +63,5 @@ weatherops-tropical-wind-speed-forecast
 ```
 
 # Links
-- [skywise-platform-py docs]()
-- [Platform HTTP Interface docs]()
+- [skywise-platform-py docs](http://docs.api.wdtinc.com/skywise-platform-py/en/latest/)
+- [Platform HTTP Interface docs](http://docs.api.wdtinc.com/platform-api/en/latest/)
