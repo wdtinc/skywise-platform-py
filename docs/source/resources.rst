@@ -74,16 +74,13 @@ case we get native Python datetime objects for start/endTime and geojson for our
 ------
 Images
 ------
-All tile requests are images. This library does not currently support products with MVTs. You can read in bytes for the
-requested image using the `content()` method.
+All tile requests are images. You can access the contents of a requested image using the `content()` method.
 
 .. code-block:: python
 
-    >>> tile = product.google_maps_tiles(0, 0, 0).pop()
+    >>> tile = product.frames().pop().tile(x=0, y=0, z=1)
     >>> with open('tile.tiff', 'w') as f:
     ...    f.write(tile.content())
-
-You can then open up your tiff to inspect the data directly. We'll talk about tile methods in more depth later on.
 
 -------
 group()

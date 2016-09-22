@@ -30,7 +30,7 @@ class _Frame(SkyWiseJSON, PlatformResource):
             "native": int,
             "maximum": int
         },
-        "mediaTypes": [Any("image/jpeg", "image/png", "image/tiff")],
+        "mediaTypes": [unicode],
         "tileSize": int,
         "forecast": Any(None, unicode),
         "product": unicode
@@ -46,7 +46,7 @@ class _Frame(SkyWiseJSON, PlatformResource):
             "native": int,
             "maximum": int
         },
-        "mediaTypes": [Any("image/jpeg", "image/png", "image/tiff")],
+        "mediaTypes": [unicode],
         "tileSize": int,
         "forecast": Any(None, unicode),
         "product": unicode
@@ -112,7 +112,7 @@ class ForecastFrame(_Frame):
                 forecast_id = Product.find('weatherops-24hr-precipitation-forecast').id
 
                 # Retrieve latest frames
-                frames = ForecastFrame.find(product_id) 
+                frames = ForecastFrame.find(product_id)
 
                 # Retrieve frames for next few days
                 start = arrow.get().datetime

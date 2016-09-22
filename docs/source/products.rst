@@ -4,8 +4,6 @@ Products
 The Product class allows you to query platform products and provides convenience methods for accessing a product's other
 resources.
 
-Finding Products
-----------------
 Retrieving products is done using the `find()` method along with any combination of keyword filters. You can also find
 a specific product using its id or name.
 
@@ -13,8 +11,14 @@ a specific product using its id or name.
 
    from skywiseplatform import Product
 
+   # Retrieve All Products
    all_products = Product.find()
+
+   # Retrieve a Specific Product
    skywise_1hr_precip = Product.find('skywise-1hr-precipitation-analysis')
+
+Filters
+-------
 
 ---------
 Start/End
@@ -34,7 +38,7 @@ string, Python's native datetime objects, or anything else that is parseable by 
 ------------
 Content Type
 ------------
-If you're only interested in products of a particular content type: precipitation, temperature, relative humidity, etc.
+Precipitation, temperature, and relative humidity are examples of content types.
 
 .. code-block:: python
 
@@ -42,11 +46,21 @@ If you're only interested in products of a particular content type: precipitatio
    temp_products = Product.find(contentType='temperature')
    rh_products = Product.find(contentType='relative-humidity')
 
+Here's a quick way to use `group()` to list out all content types currently in use:
+
+.. code-block:: python
+
+    >>> Product.find().group('contentType').keys()
+    [u'wind-direction', u'temperature', u'dewpoint', u'wind-speed',
+    u'solar-radiation', u'low-temperature', u'high-temperature',
+    u'wind-speed-probability', u'reflectivity', u'wind-gust', u'evapotranspiration',
+    u'precipitation', u'relative-humidity']
+
 --------
 Coverage
 --------
-A product's coverage indicates the region for which it has frames. This is useful for filtering products down to an area
-of interest. You can specify coverage using the geojson_ module.
+A product's coverage indicates the region on the globe for which it has frames. This is useful for filtering products
+down to an area of interest. You can specify coverage using the geojson_ module.
 
 .. _geojson: https://pypi.python.org/pypi/geojson/
 
@@ -63,14 +77,23 @@ of interest. You can specify coverage using the geojson_ module.
 ------------------
 Aggregation Period
 ------------------
-Product's typically represent frames on an hourly or daily basis, but for radar products can be as often as every five
-minutes. You can filter products by their aggregation period using integers to indicate the number of minutes in the period.
-60 would indicate an hourly product and 1400 would indicate a daily product. You can also just say 'hourly' or 'daily'
-for convenience.
+You can filter products by their aggregation period using integers to indicate the number of minutes in the period.
+You can also just say 'hourly' or 'daily' for convenience.
 
 .. code-block:: python
 
-    radar_products = Product.find(aggregation=5)
-    hourly_products = Product.find(aggregation='hourly')
+    hourly_products = Product.find(aggregation=60)
     daily_products = Product.find(aggregation='daily')
 
+Styles
+------
+The `styles()` method will return all of a products styles:
+
+.. code-block:: python
+
+    >>> product = Product.find('skywise-contoured-na-base-reflectivity-mosaic')
+    >>> [style.name for styles in product.styles()]
+    [<Style skywise-contoured-na-base-reflectivity-mosaic-precip-typed>,
+     <Style skywise-contoured-na-base-reflectivity-mosaic-default>]
+
+These can be used with prerendered image formats (jpeg/png) [in conjunction with tile requests]().

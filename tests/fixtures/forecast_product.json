@@ -1,0 +1,58 @@
+{
+   "styles":"\/products\/35131df4-c20c-4cd4-a25c-08ad1e02a0d3\/styles",
+   "contentType":"evapotranspiration",
+   "coverage":{
+      "geometry":{
+         "type":"MultiPolygon",
+         "coordinates":[
+            [
+               [
+                  [
+                     -122.6598,
+                     14.44691
+                  ],
+                  [
+                     -122.6598,
+                     52.46037
+                  ],
+                  [
+                     -47.95929,
+                     52.46037
+                  ],
+                  [
+                     -47.95929,
+                     14.44691
+                  ],
+                  [
+                     -122.6598,
+                     14.44691
+                  ]
+               ]
+            ]
+         ]
+      },
+      "type":"Feature"
+   },
+   "forecasts":"\/products\/35131df4-c20c-4cd4-a25c-08ad1e02a0d3\/forecasts",
+   "startTime":"2016-09-20T21:00:00Z",
+   "frames":null,
+   "styleableLayers":[
+      {
+         "attributes":[
+
+         ],
+         "type":"raster",
+         "name":"evapotranspiration",
+         "unit":{
+            "description":"Evapotranspiration rate in millimeters per hour",
+            "label":"mm\/hr"
+         }
+      }
+   ],
+   "id":"35131df4-c20c-4cd4-a25c-08ad1e02a0d3",
+   "description":"SkyWise wrf 1-hour evapotranspiration short forecast",
+   "aggregationPeriodInMinutes":60,
+   "name":"skywise-1hr-evapotranspiration-short-forecast",
+   "source":"wrf",
+   "endTime":"2016-09-27T09:00:00Z"
+}

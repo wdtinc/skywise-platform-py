@@ -23,34 +23,32 @@ _forecast_serialize_schema = Schema({
 })
 
 
-class Forecast(SkyWiseJSON, PlatformResource):
+class _Forecast(SkyWiseJSON, PlatformResource):
+
+    def _frames(self, start=None, end=None, **kwargs):
+        return ForecastFrame.find(self.id, start=start, end=end, **kwargs)
+
+    def __getattr__(self, item):
+        if item == 'frames':
+            return self._frames
+        return super(_Forecast, self).__getattr__(item)
+
+    def __repr__(self):
+        try:
+            return '<Forecast %s>' % (self.initTime,)
+        except:
+            return super(_Forecast, self).__repr__()
+
+
+class Forecast(_Forecast):
 
     _path = '/forecasts'
 
     _deserialize = _forecast_deserialize_schema
     _serialize = _forecast_serialize_schema
 
-    @classmethod
-    def find(cls, id_=None, product_id=None, **kwargs):
-        if id_:
-            return super(Forecast, cls).find(id_)
-        elif product_id:
-            return _ProductForecast.find(product_id, **kwargs)
-        raise MissingParametersException("Must specify either forecast id or product.")
 
-    @classmethod
-    def current(cls, product_id):
-        """ Returns most recent forecast for specified product. """
-        return _ProductForecast.current(product_id)
-
-    def __repr__(self):
-        try:
-            return '<Forecast %s>' % (self.initTime,)
-        except:
-            return super(Forecast, self).__repr__()
-
-
-class _ProductForecast(SkyWiseJSON, PlatformResource):
+class ProductForecast(_Forecast):
 
     _path = "/products/{product_id}/forecasts"
 
@@ -66,22 +64,6 @@ class _ProductForecast(SkyWiseJSON, PlatformResource):
 
     @classmethod
     def find(cls, product_id, **kwargs):
-        forecasts = super(_ProductForecast, cls).find(product_id=product_id, **kwargs)
-        if len(forecasts) == 0:
-            raise SkyWiseException("No forecasts found for product.")
-        return forecasts
-
-    @classmethod
-    def current(cls, product_id):
-        forecasts = cls.find(product_id)
+        forecasts = super(ProductForecast, cls).find(product_id=product_id, **kwargs)
         forecasts.sort(key=lambda f: f.initTime)
-        return forecasts[-1]
-
-    def get_frames(self, start=None, end=None, **kwargs):
-        return ForecastFrame.find(self.id, start=start, end=end, **kwargs)
-
-    def __repr__(self):
-        try:
-            return '<Forecast %s>' % (self.initTime,)
-        except:
-            return super(Forecast, self).__repr__()
+        return forecasts
