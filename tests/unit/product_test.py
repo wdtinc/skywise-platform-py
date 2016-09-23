@@ -40,7 +40,7 @@ class ProductTest(PlatformTest):
         self.adapter.register_uri('GET', '/products/%s/forecasts' % forecast_product.id,
                                   json=forecasts_json)
         forecasts = forecast_product.forecasts()
-        self.assertEqual(len(forecasts), 2)
+        self.assertEqual(len(forecasts), 3)
 
     def test_analysis_frames(self):
         product_json = load_fixture('product')
@@ -65,7 +65,7 @@ class ProductTest(PlatformTest):
                                   json=forecasts_json)
 
         frames_json = load_fixture('frames')
-        self.adapter.register_uri('GET', '/forecasts/92267afc-1e72-4408-a94b-62b40881ea4e/frames',
+        self.adapter.register_uri('GET', '/forecasts/4a61c817-3fc0-4dec-80ab-25936d73b2d7/frames',
                                   json=frames_json)
         frames = forecast_product.frames()
         self.assertEqual(len(frames), 2)
