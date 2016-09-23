@@ -1,6 +1,7 @@
 import arrow
 
-from skywiseplatform import Forecast
+from skywiseplatform import Product
+from skywiseplatform.forecast import Forecast, ProductForecast
 from tests import load_fixture
 from tests.unit import PlatformTest
 
@@ -12,46 +13,30 @@ class ForecastTest(PlatformTest):
         self.adapter.register_uri('GET', '/forecasts/%s' % (forecast_json['id']),
                                   json=forecast_json)
         forecast = Forecast.find(forecast_json['id'])
-        self.assertEqual(forecast.initTime, arrow.get('2014-09-01T12:00:00Z').datetime)
+        self.assertEqual(forecast.id, u'ed5e547b-ab1d-4e84-885e-3a7d3dec9b93')
 
     def test_find_by_product(self):
         forecasts_json = load_fixture('forecasts')
         self.adapter.register_uri('GET', '/products/%s/forecasts' % (self.product.id),
                                   json=forecasts_json)
-        forecasts = Forecast.find(product_id=self.product.id)
-        self.assertEqual(len(forecasts), 2)
+        forecasts = ProductForecast.find(self.product.id)
+        self.assertEqual(len(forecasts), 3)
 
-    def test_get_frames(self):
-        scenario = load_fixture('forecast_frame_scenario')
-
-        product_json = scenario['product']
-        self.adapter.register_uri('GET', '/products/my-forecast-product',
+    def test_frames(self):
+        product_json = load_fixture('forecast_product')
+        self.adapter.register_uri('GET', '/products/%s' % product_json['id'],
                                   json=product_json)
-
-        forecasts = scenario['forecasts']
-        self.adapter.register_uri('GET', '/products/my-forecast-product/forecasts',
-                                  json=forecasts)
-
-        frames = scenario['frames']
-        self.adapter.register_uri('GET', '/forecasts/forecast-a/frames',
-                                  json=frames['forecast-a'])
-        self.adapter.register_uri('GET', '/forecasts/forecast-b/frames',
-                                  json=frames['forecast-b'])
-
         product = Product.find(product_json['id'])
-        frames = product.get_frames(start=arrow.get('2014-09-01').date(),
-                                    end=arrow.get('2014-09-03').date())
-        self.assertEqual(len(frames), 3)
-        frames.sort(key=lambda f: f.validTime)
-        self.assertEqual(frames[0].id, 'frame-a-1')
-        self.assertEqual(frames[1].id, 'frame-b-1')
-        self.assertEqual(frames[2].id, 'frame-b-2')
 
-        frames = product.get_frames()
-        self.assertEqual(len(frames), 2)
-        frames.sort(key=lambda f: f.validTime)
-        self.assertEqual(frames[0].id, 'frame-b-1')
-        self.assertEqual(frames[1].id, 'frame-b-2')
+        forecasts_json = load_fixture('forecasts')
+        self.adapter.register_uri('GET', '/products/%s/forecasts' % product.id,
+                                  json=forecasts_json)
+        forecast = product.forecasts().pop()
+        self.assertEqual(forecast.id, u'4a61c817-3fc0-4dec-80ab-25936d73b2d7',
+                         'Last forecast in list should be the most current.')
 
-    def test_forecast_order_newest_to_oldest(self):
-        raise Exception()
+        frames_json = load_fixture('forecast_frames')
+        self.adapter.register_uri('GET', '/forecasts/%s/frames' % forecast.id,
+                                  json=frames_json)
+        frames = forecast.frames()
+        self.assertEqual(len(frames), 10)

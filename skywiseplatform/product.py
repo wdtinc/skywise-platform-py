@@ -111,7 +111,10 @@ class Product(SkyWiseJSON, PlatformResource):
         if self._data['frames']:
             return ProductFrame.find(self.id, start=start, end=end, limit=limit, reruns=reruns, **kwargs)
         else:
-            forecast = self.forecasts().pop()
+            forecasts = self.forecasts()
+            if not forecasts:
+                return forecasts
+            forecast = forecasts.pop()
             return forecast.frames(start=start, end=end, limit=limit, reruns=reruns, **kwargs)
 
     def __getattr__(self, item):

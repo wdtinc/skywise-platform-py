@@ -1,7 +1,7 @@
 import math
 
 from skywiserestclient import SkyWiseImage
-from . import PlatformResource
+from . import PlatformResource, Style
 
 
 _MinLatitude = -85.05112878
@@ -15,11 +15,8 @@ class MapTile(SkyWiseImage, PlatformResource):
     _style_id = None
 
     @classmethod
-    def get_headers(cls):
-        headers = super(MapTile, cls).get_headers()
-        if cls._style_id:
-            headers['Accept'] = "%s; style=%s; version=1" % (cls._media_type, cls._style_id)
-        return headers
+    def get_style(cls):
+        return cls._style_id
 
     @classmethod
     def set_style(cls, style_id):
@@ -109,6 +106,44 @@ class MapTile(SkyWiseImage, PlatformResource):
             quadkey += str(digit)
         return quadkey
 
+    @classmethod
+    def find(cls, style=None, media_type=None, **kwargs):
+        _media_type = media_type or cls._media_type
+        _style_id = cls._style_id
+        if style is not None and type(style) is Style:
+            _style_id = style.id
+        elif style is not None:
+            _style_id = style
+
+        headers = {}
+        if _style_id:
+            headers['Accept'] = "%s; style=%s; version=1" % (_media_type, _style_id)
+        else:
+            headers['Accept'] = "%s; version=1" % _media_type
+        return super(MapTile, cls).find(headers=headers, **kwargs)
+
+    @classmethod
+    def find_async(cls, style=None, media_type=None, **kwargs):
+        _media_type = media_type or cls._media_type
+        _style_id = cls._style_id
+        if style is not None and type(style) is Style:
+            _style_id = style.id
+        elif style is not None:
+            _style_id = style
+
+        headers = {}
+        if _style_id:
+            headers['Accept'] = "%s; style=%s; version=1" % (_media_type, _style_id)
+        else:
+            headers['Accept'] = "%s; version=1" % _media_type
+        return super(MapTile, cls).find_async(headers=headers, **kwargs)
+
+    @classmethod
+    def get_headers(cls):
+        headers = super(MapTile, cls).get_headers()
+        if cls._style_id:
+            headers['Accept'] = "%s; style=%s; version=1" % (cls._media_type, cls._style_id)
+        return headers
 
 class GoogleMapsTile(MapTile):
 
@@ -146,8 +181,10 @@ class BingMapsTile(MapTile):
     _media_type = 'image/tiff'
 
     @classmethod
-    def find(cls, frame_id, quadkey, filename=None, **kwargs):
-        return super(BingMapsTile, cls).find(frame_id=frame_id, quadkey=quadkey, **kwargs)
+    def find(cls, frame_id, quadkey, **kwargs):
+        tile = super(BingMapsTile, cls).find(frame_id=frame_id, quadkey=quadkey, **kwargs)
+        tile.quadkey = quadkey
+        return tile
 
     @classmethod
     def find_async(cls, frame_id, quadkey, **kwargs):

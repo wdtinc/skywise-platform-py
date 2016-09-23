@@ -26,4 +26,4 @@ class PlatformTest(TestCase):
         frames_json = load_fixture('frames')
         self.adapter.register_uri('GET', '/products/%s/frames' % (self.product.id,),
                                   json=frames_json)
-        return self.product.get_frames()
+        return self.product.frames()

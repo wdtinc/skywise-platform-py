@@ -1,0 +1,12 @@
+{
+   "tile":"\/frames\/d83b118a-e336-47ab-b2a2-706773561c84\/tile\/5\/7\/12",
+   "unit":{
+      "description":"Evapotranspiration rate in millimeters per hour",
+      "label":"mm\/hr"
+   },
+   "pixel":{
+      "column":97,
+      "row":173
+   },
+   "value":0.296531558
+}

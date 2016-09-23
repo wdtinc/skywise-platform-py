@@ -1,16 +1,25 @@
 [
+   {
+      "product":"\/products\/35131df4-c20c-4cd4-a25c-08ad1e02a0d3",
+      "initTime":"2016-09-22T03:00:00Z",
+      "creationTime":"2016-09-22T06:46:28Z",
+      "frames":"\/forecasts\/70690929-5cc5-4818-a27a-f3bfd6b7479f\/frames",
+      "expirationTime":"2016-09-24T00:46:28Z",
+      "id":"70690929-5cc5-4818-a27a-f3bfd6b7479f"
+   },
   {
-    "id": "9318fe5c-2ea8-4c5c-b930-4ae81a89776f",
-    "initTime": "2014-09-01T00:00:00Z",
-    "frames": "/forecasts/9318fe5c-2ea8-4c5c-b930-4ae81a89776f/frames",
-    "product": "/products/7d8f1c29-35cd-4028-b034-509fcf48cdf0",
-    "status": "INCOMPLETE"
-  },
-  {
-    "id": "92267afc-1e72-4408-a94b-62b40881ea4e",
-    "initTime": "2014-09-01T12:00:00Z",
-    "frames": "/forecasts/92267afc-1e72-4408-a94b-62b40881ea4e/frames",
-    "product": "/products/7d8f1c29-35cd-4028-b034-509fcf48cdf0",
-    "status": "COMPLETE"
-  }
-]
+      "product":"\/products\/35131df4-c20c-4cd4-a25c-08ad1e02a0d3",
+      "initTime":"2016-09-22T15:00:00Z",
+      "creationTime":"2016-09-22T18:44:47Z",
+      "frames":"\/forecasts\/4a61c817-3fc0-4dec-80ab-25936d73b2d7\/frames",
+      "expirationTime":"2016-09-24T12:44:47Z",
+      "id":"4a61c817-3fc0-4dec-80ab-25936d73b2d7"
+   },
+   {
+      "product":"\/products\/35131df4-c20c-4cd4-a25c-08ad1e02a0d3",
+      "initTime":"2016-09-22T09:00:00Z",
+      "creationTime":"2016-09-22T12:43:42Z",
+      "frames":"\/forecasts\/ed5e547b-ab1d-4e84-885e-3a7d3dec9b93\/frames",
+      "expirationTime":"2016-09-24T06:43:42Z",
+      "id":"ed5e547b-ab1d-4e84-885e-3a7d3dec9b93"
+   }]

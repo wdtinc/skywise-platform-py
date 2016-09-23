@@ -14,10 +14,10 @@ PlatformResource.set_site(_site)
 PlatformResource.set_user(_user)
 PlatformResource.set_password(_password)
 
+from .style import Style
+from .tile import BingMapsTile, GoogleMapsTile
+from .datapoint import Datapoint
 from .frame import ProductFrame, ForecastFrame
 from .product import Product
 from .forecast import Forecast
-from .tile import BingMapsTile, GoogleMapsTile
-from .datapoint import Datapoint
-from .style import Style
-from skywiserestclient import map_requests
+from skywiserestclient import map_requests as map_async

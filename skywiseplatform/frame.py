@@ -1,13 +1,9 @@
-"""
-Created on 01/27/2016
-@author: Justin Stewart
-"""
 from voluptuous import Any, Schema
 
 from skywiserestclient import SkyWiseJSON
 from skywiserestclient.validation import datetime, datetime_to_str
 
-from . import PlatformResource
+from skywiseplatform import PlatformResource, GoogleMapsTile, BingMapsTile, Datapoint
 
 
 class _Frame(SkyWiseJSON, PlatformResource):
@@ -51,6 +47,48 @@ class _Frame(SkyWiseJSON, PlatformResource):
         "forecast": Any(None, unicode),
         "product": unicode
     })
+
+    def _tile(self, x=None, y=None, z=None, quadkey=None, **kwargs):
+        if x is not None and y is not None and z is not None:
+            tile = GoogleMapsTile.find(self.id, x, y, z, **kwargs)
+        elif quadkey is not None:
+            tile = BingMapsTile.find(self.id, quadkey, **kwargs)
+        else:
+            raise Exception("You failed to provide either x/y/z coords or a quadkey.")
+        tile.frame = self
+        return tile
+
+    def _tile_async(self, x=None, y=None, z=None, quadkey=None, **kwargs):
+        if x is not None and y is not None and z is not None:
+            tile = GoogleMapsTile.find_async(self.id, x, y, z, **kwargs)
+        elif quadkey is not None:
+            tile = BingMapsTile.find_async(self.id, quadkey, **kwargs)
+        else:
+            raise Exception("You failed to provide either x/y/z coords or a quadkey.")
+        tile.tag(frame=self)
+        return tile
+
+    def _datapoint(self, lat, lon):
+        datapoint = Datapoint.find(self, lat, lon)
+        datapoint.frame = self
+        return datapoint
+
+    def _datapoint_async(self, lat, lon):
+        datapoint = Datapoint.find_async(self, lat, lon)
+        datapoint.tag(frame=self)
+        return datapoint
+
+    def __getattr__(self, item):
+        if item == 'tile':
+            return self._tile
+        elif item == 'tile_async':
+            return self._tile_async
+        elif item == 'datapoint':
+            return self._datapoint
+        elif item == 'datapoint_async':
+            return self._datapoint_async
+        else:
+            return super(_Frame, self).__getattr__(item)
 
 
 class SingleFrame(_Frame):
