@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/wdtinc/skywise-platform-py.svg?branch=master)](https://travis-ci.org/wdtinc/skywise-platform-py)
 
 # Overview
-A Python client library for the SkyWise Platform API. To see the library in action, [read the docs](http://docs.api.wdtinc.com/skywise-platform-py/en/latest/).
+A Python client library for the SkyWise Platform API. For example usage, [see our developer guide](http://docs.api.wdtinc.com/skywise-platform-py/en/latest/).
 
 # Installation
 
