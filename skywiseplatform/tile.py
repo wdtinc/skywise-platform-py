@@ -145,13 +145,18 @@ class MapTile(SkyWiseImage, PlatformResource):
             headers['Accept'] = "%s; style=%s; version=1" % (cls._media_type, cls._style_id)
         return headers
 
+
 class GoogleMapsTile(MapTile):
 
     _path = "/frames/{frame_id}/tile/{z}/{x}/{y}"
     _media_type = 'image/tiff'
 
     @classmethod
-    def find(cls, frame_id, x, y, z, **kwargs):
+    def find(cls, frame, x, y, z, **kwargs):
+        if type(frame) == unicode:
+            frame_id = frame
+        else:
+            frame_id = frame.id
         tile = super(GoogleMapsTile, cls).find(frame_id=frame_id, x=x, y=y, z=z, **kwargs)
         tile.x = x
         tile.y = y
@@ -159,20 +164,24 @@ class GoogleMapsTile(MapTile):
         return tile
 
     @classmethod
-    def find_async(cls, frame_id, x, y, z, **kwargs):
+    def find_async(cls, frame, x, y, z, **kwargs):
+        if type(frame) == unicode:
+            frame_id = frame
+        else:
+            frame_id = frame.id
         tile_request = super(GoogleMapsTile, cls).find_async(frame_id=frame_id, x=x, y=y, z=z, **kwargs)
-        tile_request.tag(x=x, y=y, z=z)
+        tile_request.tag(frame=frame, x=x, y=y, z=z)
         return tile_request
 
     @classmethod
-    def tileset(cls, frame_id, lat_lon_bounding_box, z, padding=None):
-        requests = cls.tileset_async(frame_id, lat_lon_bounding_box, z, padding=padding)
+    def tileset(cls, frame, lat_lon_bounding_box, z, padding=None):
+        requests = cls.tileset_async(frame, lat_lon_bounding_box, z, padding=padding)
         return cls.map(requests)
 
     @classmethod
-    def tileset_async(cls, frame_id, lat_lon_bounding_box, z, padding=None):
+    def tileset_async(cls, frame, lat_lon_bounding_box, z, padding=None):
         tile_range = cls.tile_range(lat_lon_bounding_box, z, padding=padding)
-        return [cls.find_async(frame_id, tile[0], tile[1], z) for tile in tile_range]
+        return [cls.find_async(frame, tile[0], tile[1], z) for tile in tile_range]
 
 
 class BingMapsTile(MapTile):
@@ -181,13 +190,13 @@ class BingMapsTile(MapTile):
     _media_type = 'image/tiff'
 
     @classmethod
-    def find(cls, frame_id, quadkey, **kwargs):
-        tile = super(BingMapsTile, cls).find(frame_id=frame_id, quadkey=quadkey, **kwargs)
+    def find(cls, frame, quadkey, **kwargs):
+        tile = super(BingMapsTile, cls).find(frame_id=frame.id, quadkey=quadkey, **kwargs)
         tile.quadkey = quadkey
         return tile
 
     @classmethod
-    def find_async(cls, frame_id, quadkey, **kwargs):
-        tile_request = super(BingMapsTile, cls).find_async(frame_id=frame_id, quadkey=quadkey, **kwargs)
-        tile_request.tag(quadkey=quadkey)
+    def find_async(cls, frame, quadkey, **kwargs):
+        tile_request = super(BingMapsTile, cls).find_async(frame_id=frame.id, quadkey=quadkey, **kwargs)
+        tile_request.tag(quadkey=quadkey, frame=frame)
         return tile_request
