@@ -101,6 +101,9 @@ class Product(SkyWiseJSON, PlatformResource):
 
         return super(Product, cls).find(id_=id_, aggregation=aggregation, **kwargs)
 
+    def has_forecast(self):
+        return self._data['forecasts'] is not None
+
     def _styles(self):
         return Style.find(self.id)
 
