@@ -105,20 +105,29 @@ class Product(SkyWiseJSON, PlatformResource):
         return self._data['forecasts'] is not None
 
     def _styles(self):
-        return Style.find(self.id)
+        styles = Style.find(self.id)
+        for style in styles:
+            style.product = self
+        return styles
 
     def _forecasts(self, **kwargs):
-        return ProductForecast.find(self.id, **kwargs)
+        forecasts = ProductForecast.find(self.id, **kwargs)
+        for forecast in forecasts:
+            forecast.product = self
+        return forecasts
 
     def _frames(self, start=None, end=None, limit=None, reruns=None, **kwargs):
         if self._data['frames']:
-            return ProductFrame.find(self.id, start=start, end=end, limit=limit, reruns=reruns, **kwargs)
+            frames = ProductFrame.find(self.id, start=start, end=end, limit=limit, reruns=reruns, **kwargs)
         else:
             forecasts = self.forecasts()
             if not forecasts:
                 return forecasts
             forecast = forecasts.pop()
-            return forecast.frames(start=start, end=end, limit=limit, reruns=reruns, **kwargs)
+            frames = forecast.frames(start=start, end=end, limit=limit, reruns=reruns, **kwargs)
+        for frame in frames:
+            frame.product = self
+        return frames
 
     def __getattr__(self, item):
         if item == 'styles':
