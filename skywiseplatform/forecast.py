@@ -26,7 +26,11 @@ _forecast_serialize_schema = Schema({
 class _Forecast(SkyWiseJSON, PlatformResource):
 
     def _frames(self, start=None, end=None, **kwargs):
-        return ForecastFrame.find(self.id, start=start, end=end, **kwargs)
+        frames = ForecastFrame.find(self.id, start=start, end=end, **kwargs)
+        for frame in frames:
+            frame.forecast = self
+            frame.product = self.product
+        return frames
 
     def __getattr__(self, item):
         if item == 'frames':
