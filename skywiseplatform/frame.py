@@ -28,8 +28,7 @@ class _Frame(SkyWiseJSON, PlatformResource):
         },
         "mediaTypes": [unicode],
         "tileSize": int,
-        "forecast": Any(None, unicode),
-        "product": unicode
+        "forecast": Any(None, unicode)
     })
 
     _serialize = Schema({
@@ -44,8 +43,7 @@ class _Frame(SkyWiseJSON, PlatformResource):
         },
         "mediaTypes": [unicode],
         "tileSize": int,
-        "forecast": Any(None, unicode),
-        "product": unicode
+        "forecast": Any(None, unicode)
     })
 
     def _tile(self, x=None, y=None, z=None, quadkey=None, **kwargs):
