@@ -3,23 +3,23 @@ from voluptuous import Any, Schema
 from skywiserestclient import SkyWiseJSON
 
 from skywiserestclient.validation import datetime, datetime_to_str
-from skywiserestclient.exceptions import MissingParametersException
-from skywiserestclient.skywise import SkyWiseException
 from skywiseplatform import PlatformResource, ForecastFrame
 
 
 _forecast_deserialize_schema = Schema({
     "id": unicode,
     "initTime": datetime,
-    "frames": unicode,
-    "product": unicode
+    "creationTime": datetime,
+    "expirationTime": datetime,
+    "frames": unicode
 })
 
 _forecast_serialize_schema = Schema({
     "id": unicode,
     "initTime": datetime_to_str,
-    "frames": unicode,
-    "product": unicode
+    "creationTime": datetime_to_str,
+    "expirationTime": datetime_to_str,
+    "frames": unicode
 })
 
 
