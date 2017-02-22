@@ -45,7 +45,8 @@ class Product(SkyWiseJSON, PlatformResource):
         },
         "startTime": datetime,
         "endTime": datetime,
-        "aggregationPeriodInMinutes": int
+        "aggregationPeriodInMinutes": int,
+        "tags": dict
     })
 
     _serialize = Schema({
@@ -69,7 +70,8 @@ class Product(SkyWiseJSON, PlatformResource):
         },
         "startTime": datetime_to_str,
         "endTime": datetime_to_str,
-        "aggregationPeriodInMinutes": int
+        "aggregationPeriodInMinutes": int,
+        "tags": dict
     })
 
     _args = Schema({
