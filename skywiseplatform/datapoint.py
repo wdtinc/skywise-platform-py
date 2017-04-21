@@ -36,13 +36,21 @@ class Datapoint(SkyWiseJSON, PlatformResource):
 
     @classmethod
     def find(cls, frame, latitude, longitude, **kwargs):
-        r = super(Datapoint, cls).find(frame_id=frame.id, latitude=latitude, longitude=longitude, **kwargs)
+        if type(frame) == unicode:
+            frame_id = frame
+        else:
+            frame_id = frame.id
+        r = super(Datapoint, cls).find(frame_id=frame_id, latitude=latitude, longitude=longitude, **kwargs)
         r.frame = frame
         r.validTime = frame.validTime
         return r
 
     @classmethod
     def find_async(cls, frame, latitude, longitude, **kwargs):
-        r = super(Datapoint, cls).find_async(frame_id=frame.id, latitude=latitude, longitude=longitude, **kwargs)
+        if type(frame) == unicode:
+            frame_id = frame
+        else:
+            frame_id = frame.id
+        r = super(Datapoint, cls).find_async(frame_id=frame_id, latitude=latitude, longitude=longitude, **kwargs)
         r.tag(frame=frame, validTime=frame.validTime)
         return r
