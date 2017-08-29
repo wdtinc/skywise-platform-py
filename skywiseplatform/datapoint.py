@@ -1,4 +1,4 @@
-from voluptuous import Any, Schema
+from voluptuous import Any, Schema, Required
 
 from skywiserestclient import SkyWiseJSON
 from . import PlatformResource
@@ -14,7 +14,7 @@ class Datapoint(SkyWiseJSON, PlatformResource):
             "row": int,
             "column": int
         },
-        "value": Any(None, float),
+        Required("value"): Any(None, float),
         "unit": {
             "description": unicode,
             "label": unicode
@@ -27,7 +27,7 @@ class Datapoint(SkyWiseJSON, PlatformResource):
             "row": int,
             "column": int
         },
-        "value": Any(None, float),
+        Required("value"): Any(None, float),
         "unit": {
             "description": unicode,
             "label": unicode
