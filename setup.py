@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='skywise-platform',
-    version='0.1.5',
+    version='0.1.6',
     package_data={'': ['README.md']},
     packages=['skywiseplatform'],
     install_requires=[
