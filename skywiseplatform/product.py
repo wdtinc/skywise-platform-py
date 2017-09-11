@@ -1,7 +1,7 @@
 from voluptuous import Any, Schema, ALLOW_EXTRA
 
 from skywiserestclient import SkyWiseJSON
-from skywiserestclient.validation import (datetime, polygon, multipolygon, datetime_to_str)
+from skywiserestclient.validation import (datetime, datetime_to_str)
 from skywiserestclient import SkyWiseException
 
 from . import PlatformResource
