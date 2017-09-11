@@ -39,10 +39,6 @@ class Product(SkyWiseJSON, PlatformResource):
             "unit": Any(None, dict),
             "attributes": [dict]
         }],
-        "coverage": {
-            "geometry": Any(polygon, multipolygon),
-            "type": unicode
-        },
         "startTime": datetime,
         "endTime": datetime,
         "aggregationPeriodInMinutes": int,
@@ -64,10 +60,6 @@ class Product(SkyWiseJSON, PlatformResource):
             "unit": Any(None, dict),
             "attributes": [dict]
         }],
-        "coverage": {
-            "geometry": geojson.dumps,
-            "type": unicode
-        },
         "startTime": datetime_to_str,
         "endTime": datetime_to_str,
         "aggregationPeriodInMinutes": int,
@@ -79,8 +71,7 @@ class Product(SkyWiseJSON, PlatformResource):
         "source": str,
         "aggregation": int,
         "start": datetime_to_str,
-        "end": datetime_to_str,
-        "coverage": geojson.dumps
+        "end": datetime_to_str
     })
 
     def __repr__(self):
