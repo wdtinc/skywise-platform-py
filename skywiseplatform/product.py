@@ -1,5 +1,4 @@
-import geojson
-from voluptuous import Any, Schema
+from voluptuous import Any, Schema, ALLOW_EXTRA
 
 from skywiserestclient import SkyWiseJSON
 from skywiserestclient.validation import (datetime, polygon, multipolygon, datetime_to_str)
@@ -43,7 +42,7 @@ class Product(SkyWiseJSON, PlatformResource):
         "endTime": datetime,
         "aggregationPeriodInMinutes": int,
         "tags": dict
-    })
+    }, extra=ALLOW_EXTRA)
 
     _serialize = Schema({
         "id": unicode,
@@ -64,7 +63,7 @@ class Product(SkyWiseJSON, PlatformResource):
         "endTime": datetime_to_str,
         "aggregationPeriodInMinutes": int,
         "tags": dict
-    })
+    }, extra=ALLOW_EXTRA)
 
     _args = Schema({
         "contentType": str,
@@ -72,7 +71,7 @@ class Product(SkyWiseJSON, PlatformResource):
         "aggregation": int,
         "start": datetime_to_str,
         "end": datetime_to_str
-    })
+    }, extra=ALLOW_EXTRA)
 
     def __repr__(self):
         try:
