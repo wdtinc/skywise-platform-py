@@ -1,8 +1,7 @@
-import geojson
-from voluptuous import Any, Schema
+from voluptuous import Any, Schema, ALLOW_EXTRA
 
 from skywiserestclient import SkyWiseJSON
-from skywiserestclient.validation import (datetime, polygon, multipolygon, datetime_to_str)
+from skywiserestclient.validation import (datetime, datetime_to_str)
 from skywiserestclient import SkyWiseException
 
 from . import PlatformResource
@@ -39,15 +38,11 @@ class Product(SkyWiseJSON, PlatformResource):
             "unit": Any(None, dict),
             "attributes": [dict]
         }],
-        "coverage": {
-            "geometry": Any(polygon, multipolygon),
-            "type": unicode
-        },
         "startTime": datetime,
         "endTime": datetime,
         "aggregationPeriodInMinutes": int,
         "tags": dict
-    })
+    }, extra=ALLOW_EXTRA)
 
     _serialize = Schema({
         "id": unicode,
@@ -64,24 +59,19 @@ class Product(SkyWiseJSON, PlatformResource):
             "unit": Any(None, dict),
             "attributes": [dict]
         }],
-        "coverage": {
-            "geometry": geojson.dumps,
-            "type": unicode
-        },
         "startTime": datetime_to_str,
         "endTime": datetime_to_str,
         "aggregationPeriodInMinutes": int,
         "tags": dict
-    })
+    }, extra=ALLOW_EXTRA)
 
     _args = Schema({
         "contentType": str,
         "source": str,
         "aggregation": int,
         "start": datetime_to_str,
-        "end": datetime_to_str,
-        "coverage": geojson.dumps
-    })
+        "end": datetime_to_str
+    }, extra=ALLOW_EXTRA)
 
     def __repr__(self):
         try:
